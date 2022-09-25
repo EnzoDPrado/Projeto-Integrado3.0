@@ -4,7 +4,7 @@ const cors = require('cors');
 
 //Importando funções com o body parser
 const bodyParser = require('body-parser');
-const {getAluno, getAlunos, getAlunoDisciplinas, getAlunosByDisciplinas} = require('./modulos/alunos.js');
+const {getAluno, getAlunos, getAlunoDisciplinas, getAlunosByDisciplinas, getAnos} = require('./modulos/alunos.js');
 const {getCursos} = require('./modulos/cursos.js');
 
 const app = express();
@@ -80,6 +80,15 @@ app.get('/cursos', cors(), async function(request, response, next){
     response.status(200);
     response.json(holdCursos);
 });
+
+app.get('/curso/anoFinalization/:materia', cors(), async function (request, response, next){
+    let materia = request.params.materia;
+    let anos = getAnos();
+    let holdAnos = {};
+    
+
+
+})
 
 
 app.listen(8080, function(){

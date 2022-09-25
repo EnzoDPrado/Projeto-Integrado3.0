@@ -783,6 +783,7 @@ const getAlunosByDisciplinas = (nomeDisciplina = '') => {
                     matricula: item.matricula,
                     nomeCurso: get.nome,
                     conclusao: get.conclusao,
+                    status: item.status,
                     }
                 )
                 erro = false;
@@ -796,6 +797,22 @@ const getAlunosByDisciplinas = (nomeDisciplina = '') => {
         return holdAlunos
 }
 
+//Function pegando o ano de conclusao de cada matéria
+const getAnos = (nomeDisciplina) =>{
+    let name = nomeDisciplina.toUpperCase();
+    let holdAnos = [];
+    let reset = 0;
+
+    let alunosInfos = getAlunosByDisciplinas(name).map(aluno => aluno.conclusao);
+
+    return alunosInfos.filter((
+      year,
+      index,
+    ) => alunosInfos.indexOf(year) === index);
+
+    
+    
+}
 
 
 module.exports = {
@@ -803,4 +820,5 @@ module.exports = {
     getAluno,
     getAlunoDisciplinas,
     getAlunosByDisciplinas,
+    getAnos,
 }
