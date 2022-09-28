@@ -5,7 +5,7 @@ const cors = require('cors');
 //Importando funções com o body parser
 const bodyParser = require('body-parser');
 const {getAluno, getAlunos, getAlunoDisciplinas, getAlunosByDisciplinas, getAnos} = require('./modulos/alunos.js');
-const {getCursos} = require('./modulos/cursos.js');
+const {getCursos, getCursosByID} = require('./modulos/cursos.js');
 
 const app = express();
 
@@ -81,15 +81,31 @@ app.get('/cursos', cors(), async function(request, response, next){
     response.json(holdCursos);
 });
 
+//EndPoint para pegar os anos disponiveis de cada materia
 app.get('/curso/anoFinalization/:materia', cors(), async function (request, response, next){
     let materia = request.params.materia;
-    let anos = getAnos();
+    let anos = getAnos(materia);
     let holdAnos = {};
-    
 
-
+    holdAnos.anosDisponiveis = anos;
+    response.status(200);
+    response.json(holdAnos);
 })
 
+//EndPoint para pegar as informações de um curso apenas pela sigla
+app.get('/curso/:sigla', cors(), async function(request, response, next){
+    let sigla = request.params.sigla;
+    let getCurso = getCursosByID(sigla);
+    let holdInfos = {};
+
+    if(getCurso){
+        holdInfos.cursoInfos = getCurso;
+        response.status(200);
+        response.json(holdInfos);
+    }else{
+        response.status(400);
+    }
+})
 
 app.listen(8080, function(){
     console.log('Servidor aguardando requisicoes.');

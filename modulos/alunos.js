@@ -798,7 +798,7 @@ const getAlunosByDisciplinas = (nomeDisciplina = '') => {
 }
 
 //Function pegando o ano de conclusao de cada matéria
-const getAnos = (nomeDisciplina) =>{
+const getAnos = (nomeDisciplina = '') =>{
     let name = nomeDisciplina.toUpperCase();
     let holdAnos = [];
     let reset = 0;
